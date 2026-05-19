@@ -16,12 +16,10 @@ class EzgoTable
         return $table
             ->columns([
                 TextColumn::make('external_order_id')
-                    ->label('External Order ID')
-                    ->searchable(),
+                    ->label('External Order ID'),
 
                 TextColumn::make('transaction_id')
-                    ->label('Transaction ID')
-                    ->searchable(),
+                    ->label('Transaction ID'),
 
                 TextColumn::make('reference_number')
                     ->label('Reference No'),

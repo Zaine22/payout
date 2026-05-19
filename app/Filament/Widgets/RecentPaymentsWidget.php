@@ -16,17 +16,20 @@ class RecentPaymentsWidget extends TableWidget
 
     protected static ?string $heading = 'Recent Payments';
 
+    public static function canView(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
     public function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('orderno')
-                    ->label('Order No')
-                    ->searchable(),
+                    ->label('Order No'),
 
                 TextColumn::make('name')
-                    ->label('Name')
-                    ->searchable(),
+                    ->label('Name'),
 
                 TextColumn::make('money')
                     ->label('Amount (MMK)')
