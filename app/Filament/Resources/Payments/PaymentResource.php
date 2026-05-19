@@ -30,21 +30,22 @@ class PaymentResource extends Resource
     {
         $user = auth()->user();
 
-        // Only Admin can see Payment resource
-        return $user?->isAdmin();
+        // Admin, Ezwel, and Merchant can see Payment resource
+        return $user?->isAdmin() || $user?->hasAnyRole([UserRole::Ezwel, UserRole::Merchant]);
     }
 
     public static function canViewAny(): bool
     {
         $user = auth()->user();
 
-        return $user?->isAdmin();
+        return $user?->isAdmin() || $user?->hasAnyRole([UserRole::Ezwel, UserRole::Merchant]);
     }
 
     public static function canCreate(): bool
     {
         $user = auth()->user();
 
+        // Only Admin can create payments
         return $user?->isAdmin();
     }
 
@@ -52,6 +53,7 @@ class PaymentResource extends Resource
     {
         $user = auth()->user();
 
+        // Only Admin can edit payments
         return $user?->isAdmin();
     }
 
@@ -59,6 +61,7 @@ class PaymentResource extends Resource
     {
         $user = auth()->user();
 
+        // Only Admin can delete payments
         return $user?->isAdmin();
     }
 
