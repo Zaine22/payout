@@ -22,10 +22,10 @@ class EzgoStatsOverview extends StatsOverviewWidget
         $totalTransactions = count($ezgoList);
 
         $pendingTransactions = collect($ezgoList)->where('status', 'pending')->count();
-        $completedTransactions = collect($ezgoList)->where('status', 'completed')->count();
+        $successTransactions = collect($ezgoList)->whereIn('status', ['success', 'paid'])->count();
         $failedTransactions = collect($ezgoList)->where('status', 'failed')->count();
 
-        $totalAmount = collect($ezgoList)->where('status', 'completed')->sum('amount');
+        $totalAmount = collect($ezgoList)->whereIn('status', ['success', 'paid'])->sum('amount');
 
         return [
             Stat::make('Total Transactions', $totalTransactions)
@@ -38,7 +38,7 @@ class EzgoStatsOverview extends StatsOverviewWidget
                 ->descriptionIcon('heroicon-m-clock')
                 ->color('warning'),
 
-            Stat::make('Completed', $completedTransactions)
+            Stat::make('Completed', $successTransactions)
                 ->description('Successfully processed')
                 ->descriptionIcon('heroicon-m-check-circle')
                 ->color('success'),
