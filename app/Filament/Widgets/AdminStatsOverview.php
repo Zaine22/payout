@@ -26,7 +26,7 @@ class AdminStatsOverview extends StatsOverviewWidget
         $pendingPayments = collect($allPayments['items'] ?? [])->where('status', 0)->count();
         $completedPayments = collect($allPayments['items'] ?? [])->where('status', 1)->count();
 
-        $totalAmount = collect($allPayments['items'] ?? [])->sum('money');
+        $totalAmount = collect($allPayments['items'] ?? [])->where('status', 1)->sum('money');
 
         // Get user statistics
         $totalUsers = User::count();

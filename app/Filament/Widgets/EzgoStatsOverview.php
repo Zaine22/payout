@@ -25,7 +25,7 @@ class EzgoStatsOverview extends StatsOverviewWidget
         $completedTransactions = collect($ezgoList)->where('status', 'completed')->count();
         $failedTransactions = collect($ezgoList)->where('status', 'failed')->count();
 
-        $totalAmount = collect($ezgoList)->sum('amount');
+        $totalAmount = collect($ezgoList)->where('status', 'completed')->sum('amount');
 
         return [
             Stat::make('Total Transactions', $totalTransactions)
