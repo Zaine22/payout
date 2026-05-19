@@ -20,19 +20,25 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         // Create Admin account
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin111'),
-            'role' => UserRole::Admin,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('admin111'),
+                'role' => UserRole::Admin,
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create EZGO account
-        User::factory()->create([
-            'name' => 'EZGO',
-            'email' => 'ezgo@gmail.com',
-            'password' => Hash::make('ezgo111'),
-            'role' => UserRole::Ezgo,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'ezgo@gmail.com'],
+            [
+                'name' => 'EZGO',
+                'password' => Hash::make('ezgo111'),
+                'role' => UserRole::Ezgo,
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }
