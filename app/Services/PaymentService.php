@@ -36,6 +36,9 @@ class PaymentService
         return Http::asForm()
             ->timeout(10)
             ->retry(2, 500)
+            ->withOptions([
+                'verify' => false, // Disable SSL verification for expired certificates
+            ])
             ->withHeaders([
                 'X-ADMIN-TOKEN' => config('services.phalapi.token'),
             ]);
